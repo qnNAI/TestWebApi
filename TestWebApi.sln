@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{313C77C3-AA07-4114-A24C-D8B87EB988D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{313C77C3-AA07-4114-A24C-D8B87EB988D7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FCF603AC-D049-4EEA-9EB1-C4C2D3BC3692} = {FCF603AC-D049-4EEA-9EB1-C4C2D3BC3692}
 	EndProjectSection
@@ -12,11 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C197E95D-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Externals", "Externals", "{9FA412C8-A444-45F2-9E49-28AD66C89C7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{FCF603AC-D049-4EEA-9EB1-C4C2D3BC3692}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{FCF603AC-D049-4EEA-9EB1-C4C2D3BC3692}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{56AC8BD3-C352-413B-995E-6FAFBE34965A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{56AC8BD3-C352-413B-995E-6FAFBE34965A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{8057F37D-9ADD-47D0-BB7B-DDF87196AC78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{8057F37D-9ADD-47D0-BB7B-DDF87196AC78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ED5167A2-1A31-4C29-B43D-3A57C7DAD1C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,7 +48,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{313C77C3-AA07-4114-A24C-D8B87EB988D7} = {9FA412C8-A444-45F2-9E49-28AD66C89C7F}
-		{FCF603AC-D049-4EEA-9EB1-C4C2D3BC3692} = {C197E95D-73BC-4F9D-80F9-92ADE5564245}
+		{FCF603AC-D049-4EEA-9EB1-C4C2D3BC3692} = {9FA412C8-A444-45F2-9E49-28AD66C89C7F}
 		{56AC8BD3-C352-413B-995E-6FAFBE34965A} = {C197E95D-73BC-4F9D-80F9-92ADE5564245}
 		{8057F37D-9ADD-47D0-BB7B-DDF87196AC78} = {9FA412C8-A444-45F2-9E49-28AD66C89C7F}
 	EndGlobalSection
