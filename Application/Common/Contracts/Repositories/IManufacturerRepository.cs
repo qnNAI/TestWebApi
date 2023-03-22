@@ -11,4 +11,5 @@ namespace Application.Common.Contracts.Repositories;
 public interface IManufacturerRepository {
 
     Task<IEnumerable<Manufacturer>> GetManufacturersAsync(PageRequest pageRequest);
+    Task<Manufacturer> GetManufacturerByIdAsync(Guid id);
 }

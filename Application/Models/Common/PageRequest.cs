@@ -14,7 +14,7 @@ public class PageRequest {
 
     public PageRequest(int page, int pageSize = 10) {
         Page = page < 1 ? 1 : page;
-        PageSize = pageSize < 10 ? 10 : pageSize;
+        PageSize = pageSize < 1 ? 10 : pageSize;
 
         Offset = (Page - 1) * PageSize;
     }
