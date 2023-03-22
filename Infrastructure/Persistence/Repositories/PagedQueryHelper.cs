@@ -10,7 +10,7 @@ using Dapper;
 
 namespace Infrastructure.Persistence.Repositories; 
 
-public static class PagedQueryHelper {
+public static class QueryHelper {
 
     /// <summary>
     /// Fetches page with page number <paramref name="pageNumber"/> with a page size set to <paramref name="pageSize"/>.
@@ -46,15 +46,12 @@ public static class PagedQueryHelper {
 
     }
 
-    private static string GetMemberName<T>(Expression<Func<T, object>> expression) {
-        switch(expression.Body) {
-            case MemberExpression m:
-                return m.Member.Name;
-            case UnaryExpression u when u.Operand is MemberExpression m:
-                return m.Member.Name;
-            default:
-                throw new NotImplementedException(expression.GetType().ToString());
-        }
+    public static string GetMemberName<T>(Expression<Func<T, object>> expression) {
+        return expression.Body switch {
+            MemberExpression m => m.Member.Name,
+            UnaryExpression u when u.Operand is MemberExpression m => m.Member.Name,
+            _ => throw new NotImplementedException(expression.GetType().ToString()),
+        };
     }
 
     public static async Task<IEnumerable<T>> ParameterizedQueryAsync<T>(this IDbConnection connection, string sql,

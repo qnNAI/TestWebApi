@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application {
+namespace Application.Common.Mappings
+{
 
-    public static class MappingProfile {
+    public static class MappingProfile
+    {
 
-        public static void ApplyMappings() {
+        public static void ApplyMappings()
+        {
 
         }
     }

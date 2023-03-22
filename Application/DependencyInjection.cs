@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Common.Contracts.Services;
+using Application.Common.Mappings;
 using Application.Services;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +19,8 @@ public static class DependencyInjection {
         MappingProfile.ApplyMappings();
 
         services.AddScoped<IManufacturerService, ManufacturerService>();
+
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         return services;
     }
