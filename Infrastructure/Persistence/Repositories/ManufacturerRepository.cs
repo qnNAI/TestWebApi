@@ -80,18 +80,8 @@ internal class ManufacturerRepository : IManufacturerRepository {
 
     public async Task<Manufacturer> UpdateAsync(Manufacturer manufacturer) {
         using var connection = _context.CreateConnection();
-        
-        connection.Open();
-        using var transaction = connection.BeginTransaction();
+        await connection.UpdateAsync(manufacturer);
 
-        try {
-            await connection.UpdateAsync(manufacturer, transaction);
-
-            transaction.Commit();
-        } catch(Exception) {
-            transaction.Rollback();
-            throw;
-        }
         var updated = await connection.GetAsync<Manufacturer>(manufacturer.Id);
         return updated;
     }
