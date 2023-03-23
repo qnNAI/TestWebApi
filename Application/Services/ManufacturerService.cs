@@ -50,7 +50,7 @@ internal class ManufacturerService : IManufacturerService {
         return updated.Adapt<ManufacturerDto>();
     }
 
-    public async Task DeleteAsync(Guid id) {
-        await _repository.DeleteAsync(id);
+    public Task DeleteAsync(Guid id) {
+        return _repository.DeleteAsync(id);
     }
 }

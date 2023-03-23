@@ -19,6 +19,7 @@ public static class DependencyInjection {
         MappingProfile.ApplyMappings();
 
         services.AddScoped<IManufacturerService, ManufacturerService>();
+        services.AddScoped<ICarService, CarService>();
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
