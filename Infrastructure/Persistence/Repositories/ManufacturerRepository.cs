@@ -25,7 +25,7 @@ internal class ManufacturerRepository : IManufacturerRepository {
         var sql = "SELECT * FROM Manufacturers";
         using var connection = _context.CreateConnection();
         
-        return await connection.GetPageAsync<Manufacturer>(m => m.Name, sql, pageRequest);
+        return await connection.GetPageAsync<Manufacturer>(m => m.Id, sql, pageRequest);
     }
 
     public async Task<ManufacturerFull> GetByIdAsync(Guid id) {
@@ -69,19 +69,11 @@ internal class ManufacturerRepository : IManufacturerRepository {
         var id = Guid.NewGuid();
         manufacturer.Id = id;
 
-        var sql = $"INSERT INTO Manufacturers (Id, Name) VALUES (@{nameof(manufacturer.Id)}, @{nameof(manufacturer.Name)})";
+        var sql = $"INSERT INTO Manufacturers (Id, Name) VALUES (@Id, @Name)";
         using var connection = _context.CreateConnection();
-        connection.Open();
-        using var transaction = connection.BeginTransaction();
 
-        try {
-            await connection.ExecuteAsync(sql, new { manufacturer.Id, manufacturer.Name }, transaction);
+        await connection.ExecuteAsync(sql, new { manufacturer.Id, manufacturer.Name });
 
-            transaction.Commit();
-        } catch(Exception) {
-            transaction.Rollback();
-            throw;
-        }
         var created = await connection.GetAsync<Manufacturer>(id);
         return created;
     }
