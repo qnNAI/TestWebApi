@@ -18,6 +18,7 @@ public static class DependencyInjection {
         services.AddSingleton<IDbContext, DapperContext>();
         services.AddScoped<ICarRepository, CarRepository>();
         services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }
