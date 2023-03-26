@@ -10,13 +10,9 @@ namespace Application.Common.Contracts.Services;
 
 public interface IIdentityService {
 
-    Task<IEnumerable<UserDto>> GetPageAsync(PageRequest page);
-
+    Task<ManageRoleResponse> AddUserToRoleAsync(AddToRoleRequest request);
+    Task<RoleResponse> CreateRoleAsync(CreateRoleRequest request);
     Task<AuthenticateResponse> SignUpAsync(SignUpRequest request);
     Task<AuthenticateResponse> SignInAsync(SignInRequest request);
-    Task<AuthenticateResponse> RefreshTokenAsync(TokenRequest request);
-
-    Task<UserDto> ChangePasswordAsync(ChangePasswordRequest request);
-    Task DeleteAsync(string username);
 }
     
