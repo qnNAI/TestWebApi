@@ -30,6 +30,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{17
 		AspNetUserTokens.sql = AspNetUserTokens.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{E185ADD0-E301-4BE8-B3C4-97D2065126A5}"
+	ProjectSection(SolutionItems) = preProject
+		Cars.sql = Cars.sql
+		Manufacturers.sql = Manufacturers.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +70,7 @@ Global
 		{56AC8BD3-C352-413B-995E-6FAFBE34965A} = {C197E95D-73BC-4F9D-80F9-92ADE5564245}
 		{8057F37D-9ADD-47D0-BB7B-DDF87196AC78} = {9FA412C8-A444-45F2-9E49-28AD66C89C7F}
 		{17A67071-3D09-48A9-A46D-92CCBCC65E56} = {768E777E-CC1F-4CC1-80AD-595F68DC3A21}
+		{E185ADD0-E301-4BE8-B3C4-97D2065126A5} = {768E777E-CC1F-4CC1-80AD-595F68DC3A21}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {617D800D-3179-4607-8769-0DA3B1BFBA18}
