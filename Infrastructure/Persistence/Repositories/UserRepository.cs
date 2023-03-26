@@ -56,9 +56,9 @@ internal class UserRepository : IUserRepository {
             throw new NotFoundException();
         }
        
-        var sql = @"UPDATE Users Set Username=@Username, Password=@Password WHERE Id=@Id";
+        var sql = @"UPDATE Users Set Password=@Password WHERE Id=@Id";
 
-        await connection.ExecuteAsync(sql, new { user.Username, user.Password, user.Id });
+        await connection.ExecuteAsync(sql, new { user.Password, user.Id });
 
         var updated = await connection.GetAsync<User>(user.Id);
         return updated;
