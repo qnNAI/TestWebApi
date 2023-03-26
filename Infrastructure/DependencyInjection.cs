@@ -20,7 +20,6 @@ public static class DependencyInjection {
         services.AddSingleton<IDbContext, DapperContext>();
         services.AddScoped<ICarRepository, CarRepository>();
         services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddDapperStores(opt => opt.ConnectionString = configuration.GetConnectionString("SqlConnection"));
