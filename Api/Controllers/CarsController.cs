@@ -2,6 +2,7 @@
 using Application.Models.Car;
 using Application.Models.Common;
 using Application.Models.Manufacturer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,7 @@ public class CarsController : ControllerBase {
     [HttpPost("create")]
     [ProducesResponseType(typeof(CarDto), 201)]
     [ProducesResponseType(400)]
+    [Authorize]
     public async Task<IActionResult> AddAsync([FromBody] CreateCarRequest createRequest) {
         var result = await _service.CreateAsync(createRequest);
 
@@ -54,6 +56,7 @@ public class CarsController : ControllerBase {
     [ProducesResponseType(typeof(CarDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(400)]
+    [Authorize]
     public async Task<IActionResult> UpdateAsync([FromBody] UpdateCarRequest updateRequest, [FromRoute] Guid id) {
         if(updateRequest.Id != id) {
             return BadRequest("Invalid id");
@@ -70,6 +73,7 @@ public class CarsController : ControllerBase {
 
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(204)]
+    [Authorize]
     public async Task<IActionResult> DeleteAsync([FromRoute] Guid id) {
         await _service.DeleteAsync(id);
         return NoContent();

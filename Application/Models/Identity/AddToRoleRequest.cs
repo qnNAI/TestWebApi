@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Application.Models.Identity;
 
-public class TokenRequest {
+public class AddToRoleRequest {
 
-    public string Token { get; set; } = null!;
-    public string RefreshToken { get; set; } = null!;
+    public string Username { get; set; } = null!;
+    public string RoleName { get; set; } = null!;
 }

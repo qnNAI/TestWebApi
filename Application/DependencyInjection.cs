@@ -20,6 +20,7 @@ public static class DependencyInjection {
 
         services.AddScoped<IManufacturerService, ManufacturerService>();
         services.AddScoped<ICarService, CarService>();
+        services.AddScoped<IIdentityService, IdentityService>();
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 

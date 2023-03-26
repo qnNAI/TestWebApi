@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Common.Contracts.Repositories;
+namespace Application.Models.Identity;
 
-public interface ITokenRepository {
+public class CreateRoleRequest {
+
+    public string Name { get; set; } = null!;
 }

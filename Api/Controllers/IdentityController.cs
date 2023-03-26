@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Application.Common.Contracts.Services;
+using Application.Models.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -8,19 +8,51 @@ namespace Api.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class IdentityController : ControllerBase {
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IIdentityService _identityService;
 
-    public IdentityController(UserManager<ApplicationUser> userManager) {
-        this._userManager = userManager;
+    public IdentityController(IIdentityService identityService) {
+        this._identityService = identityService;
     }
 
+    [HttpPost("login")]
+    public async Task<IActionResult> SignInAsync([FromBody] SignInRequest request) {
+        var result = await _identityService.SignInAsync(request);
+        if(!result.Succeeded) {
+            return Unauthorized(result);
+        }
 
-    [HttpGet]
-    public async Task<IActionResult> Get() {
-        var t = await _userManager.CreateAsync(new ApplicationUser { 
-            UserName = "test"
-        }, "Qwerty-123");
+        return Ok(result);
+    }
 
-        return Ok();
+    [HttpPost("register")]
+    public async Task<IActionResult> SignUp([FromBody] SignUpRequest request) {
+        var result = await _identityService.SignUpAsync(request);
+        if(!result.Succeeded) {
+            return BadRequest(result);
+        }
+
+        return Ok(result);
+    }
+
+    [HttpPut("add-to-role")]
+    [Authorize(Roles = "admin")]
+    public async Task<IActionResult> AddUserToRoleAsync([FromBody] AddToRoleRequest request) {
+        var result = await _identityService.AddUserToRoleAsync(request);
+        if (!result.Succeeded) {
+            return BadRequest(result);
+        }
+
+        return Ok(result);
+    }
+
+    [HttpPost("new-role")]
+    [Authorize(Roles = "admin")]
+    public async Task<IActionResult> AddRoleAsync([FromBody] CreateRoleRequest request) {
+        var result = await _identityService.CreateRoleAsync(request);
+        if (!result.Succeeded) {
+            return BadRequest(result);
+        }
+
+        return Ok(result);
     }
 }

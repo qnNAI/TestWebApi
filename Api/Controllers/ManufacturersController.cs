@@ -1,6 +1,7 @@
 ﻿using Application.Common.Contracts.Services;
 using Application.Models.Common;
 using Application.Models.Manufacturer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -51,7 +52,8 @@ public class ManufacturersController : ControllerBase {
 	[HttpPost("create")]
 	[ProducesResponseType(typeof(ManufacturerDto), 201)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> AddAsync([FromBody] CreateManufRequest createRequest) {
+    [Authorize]
+    public async Task<IActionResult> AddAsync([FromBody] CreateManufRequest createRequest) {
 		var result = await _service.CreateAsync(createRequest);
 
 		if(result is null) {
@@ -65,6 +67,7 @@ public class ManufacturersController : ControllerBase {
     [ProducesResponseType(typeof(ManufacturerDto), 200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(400)]
+    [Authorize]
     public async Task<IActionResult> UpdateAsync([FromBody] UpdateManufRequest updateRequest, [FromRoute] Guid id) {
 		if (updateRequest.Id != id) {
 			return BadRequest("Invalid id");
@@ -81,6 +84,7 @@ public class ManufacturersController : ControllerBase {
 
 	[HttpDelete("{id:guid}")]
     [ProducesResponseType(204)]
+    [Authorize]
     public async Task<IActionResult> DeleteAsync([FromRoute] Guid id) {
 		await _service.DeleteAsync(id);
 		return NoContent();
