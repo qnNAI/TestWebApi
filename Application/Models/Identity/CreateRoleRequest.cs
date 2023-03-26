@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Common;
 
-namespace Domain.Entities;
+namespace Application.Models.Identity;
 
-public class Manufacturer : Entity<Guid> {
+public class CreateRoleRequest {
 
     public string Name { get; set; } = null!;
-
 }

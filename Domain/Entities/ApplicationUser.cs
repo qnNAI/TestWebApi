@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Common;
+using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities;
 
-public class Manufacturer : Entity<Guid> {
-
-    public string Name { get; set; } = null!;
-
+public class ApplicationUser : IdentityUser {
 }

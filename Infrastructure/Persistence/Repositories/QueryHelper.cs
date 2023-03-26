@@ -5,11 +5,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Models.Common;
 using Dapper;
 
 namespace Infrastructure.Persistence.Repositories; 
 
-public static class PagedQueryHelper {
+public static class QueryHelper {
 
     /// <summary>
     /// Fetches page with page number <paramref name="pageNumber"/> with a page size set to <paramref name="pageSize"/>.
@@ -28,33 +29,29 @@ public static class PagedQueryHelper {
     /// <param name="sortAscending">Which direction to sort. True means ascending, false means descending</param>
     /// <returns></returns>
     public static async Task<IEnumerable<T>> GetPageAsync<T>(this IDbConnection connection, Expression<Func<T, object>> orderByMember,
-        string sql, int pageNumber, int pageSize, bool sortAscending = true) {
+        string sql, PageRequest page, bool sortAscending = true) {
 
-        if(string.IsNullOrEmpty(sql) || pageNumber < 0 || pageSize <= 0) {
+        if(string.IsNullOrEmpty(sql)) {
             throw new InvalidOperationException("Invalid sql query.");
         }
 
-        int skip = Math.Max(0, (pageNumber)) * pageSize;
         if(!sql.Contains("order by", StringComparison.CurrentCultureIgnoreCase)) {
             string orderByMemberName = GetMemberName(orderByMember);
             sql += $" ORDER BY [{orderByMemberName}] {(sortAscending ? "ASC" : " DESC")} OFFSET @Skip ROWS FETCH NEXT @Next ROWS ONLY";
-            return await connection.ParameterizedQueryAsync<T>(sql, new Dictionary<string, object> { { "@Skip", skip }, { "@Next", pageSize } });
+            return await connection.ParameterizedQueryAsync<T>(sql, new Dictionary<string, object> { { "@Skip", page.Offset }, { "@Next", page.PageSize } });
         } else {
             sql += $" OFFSET @Skip ROWS FETCH NEXT @Next ROWS ONLY";
-            return await connection.ParameterizedQueryAsync<T>(sql, new Dictionary<string, object> { { "@Skip", skip }, { "@Next", pageSize } });
+            return await connection.ParameterizedQueryAsync<T>(sql, new Dictionary<string, object> { { "@Skip", page.Offset }, { "@Next", page.PageSize } });
         }
 
     }
 
-    private static string GetMemberName<T>(Expression<Func<T, object>> expression) {
-        switch(expression.Body) {
-            case MemberExpression m:
-                return m.Member.Name;
-            case UnaryExpression u when u.Operand is MemberExpression m:
-                return m.Member.Name;
-            default:
-                throw new NotImplementedException(expression.GetType().ToString());
-        }
+    public static string GetMemberName<T>(Expression<Func<T, object>> expression) {
+        return expression.Body switch {
+            MemberExpression m => m.Member.Name,
+            UnaryExpression u when u.Operand is MemberExpression m => m.Member.Name,
+            _ => throw new NotImplementedException(expression.GetType().ToString()),
+        };
     }
 
     public static async Task<IEnumerable<T>> ParameterizedQueryAsync<T>(this IDbConnection connection, string sql,
